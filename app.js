@@ -1,6 +1,7 @@
 import { db } from "./firebase.js";
 
 import {
+    alert("teste radar");
     collection,
     getDocs
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
