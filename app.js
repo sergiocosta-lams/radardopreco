@@ -14,7 +14,7 @@ async function carregarPrecos(){
     try{
 
         const consulta = await getDocs(collection(db,"preco"));
-console.log(consulta.size);
+alert(consulta.size);
         if(consulta.empty){
             lista.innerHTML = "Nenhum preço cadastrado.";
             return;
