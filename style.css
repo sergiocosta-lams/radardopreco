@@ -10,15 +10,6 @@ body{
     color:white;
 }
 
-header{
-    background:#1e293b;
-    padding:20px;
-    text-align:center;
-}
-
-header h1{
-    color:#38bdf8;
-    margin-bottom:10px;
 }
 
 main{
@@ -57,21 +48,23 @@ input,select{
 .menor{
     border:2px solid #22c55e;
 }
-header {
-    background: #16a34a;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    border-radius: 15px;
-    margin-bottom: 20px;
+header{
+    background:#16a34a;
+    color:white;
+    text-align:center;
+    padding:25px;
+    border-radius:0 0 20px 20px;
+    box-shadow:0 4px 12px rgba(0,0,0,.3);
 }
 
-header h1 {
-    margin: 0;
-    font-size: 32px;
+header h1{
+    margin:0;
+    font-size:34px;
+    font-weight:bold;
 }
 
-header p {
-    margin-top: 8px;
-    opacity: 0.9;
+header p{
+    margin-top:8px;
+    font-size:16px;
+    opacity:.9;
 }
