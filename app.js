@@ -11,6 +11,8 @@ async function fetchData() {
     return rows.map(row => {
         const cols = row.split(",");
 
+        console.log(cols);
+
         return {
             nome: cols[0],
             endereco: cols[1],
