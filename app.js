@@ -10,16 +10,16 @@ async function fetchData() {
 
     return rows.map(row => {
         const cols = row.split(",");
+
         return {
             nome: cols[0],
-            categoria: cols[1],
-            preco: parseFloat(cols[2]),
-            horario: cols[3],
-            contato: cols[4]
+            endereco: cols[1],
+            gasolina: parseFloat(cols[2]),
+            etanol: parseFloat(cols[3]),
+            horario: cols[4]
         };
     });
 }
-
 async function render() {
     const list = document.getElementById("list");
     list.innerHTML = "Carregando...";
