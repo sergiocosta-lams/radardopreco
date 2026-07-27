@@ -63,3 +63,4 @@ document.getElementById("search").addEventListener("input", render);
 document.getElementById("filter").addEventListener("change", render);
 
 render();
+}   
