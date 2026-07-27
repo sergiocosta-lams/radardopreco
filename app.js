@@ -34,7 +34,7 @@ async function render() {
         (filter === "all" || item.categoria === filter)
     );
 
-    let minPrice = Math.min(...filtered.map(item => item.preco));
+    let minPrice = Math.min(...filtered.map(item => item.gasolina));
 
     list.innerHTML = "";
 
@@ -42,17 +42,16 @@ async function render() {
         const div = document.createElement("div");
         div.className = "card";
 
-        if(item.preco === minPrice){
+        if(item.gasolina === minPrice){
             div.classList.add("cheapest");
         }
 
         div.innerHTML = `
             <h3>${item.nome}</h3>
-            <p class="price">R$ ${item.preco?.toFixed(2)}</p>
-            <p>⏰ ${item.horario}</p>
-            <a href="https://wa.me/${item.contato}" target="_blank">
-                <button>Contato</button>
-            </a>
+            <p>⛽ Gasolina: R$ ${item.gasolina}</p>
+<p>🌱 Etanol: R$ ${item.etanol}</p>
+<p>⏰ ${item.horario}</p>
+<p>📍 ${item.endereco}</p>
         `;
 
         list.appendChild(div);
