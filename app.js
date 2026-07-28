@@ -54,7 +54,9 @@ if(item.gasolina === data[0].gasolina){
 
         div.innerHTML = `
 
-        <h3>${item.nome}</h3>
+        ${item.gasolina === data[0].gasolina ? '<div class="badge-price">MENOR PREÇO</div>' : ''}
+
+<h3>${item.nome}</h3>
 <p>⛽ Bandeira: ${item.bandeira}</p>
 
         <p>⛽ Gasolina: R$ ${item.gasolina.toFixed(2)}</p>
