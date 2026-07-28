@@ -71,7 +71,7 @@ input,select{
 .cheapest::before{
     content:"🏆 MENOR PREÇO";
     position:absolute;
-    top:-15px;
+    top:-12px;
     left:15px;
     background:#22c55e;
     color:white;
