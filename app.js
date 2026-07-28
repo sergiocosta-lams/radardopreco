@@ -41,12 +41,16 @@ async function render(){
     list.innerHTML = "";
 
 
-    data.forEach(item => {
+    data.sort((a, b) => a.gasolina - b.gasolina);
+
+data.forEach(item => {
 
         const div = document.createElement("div");
 
         div.className = "card";
-
+if(item.gasolina === data[0].gasolina){
+    div.classList.add("cheapest");
+}
 
         div.innerHTML = `
 
