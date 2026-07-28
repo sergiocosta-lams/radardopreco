@@ -1,4 +1,4 @@
-window.onload = function(){
+window.onload = async function(){
 
 const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRQPgvZ0cXCg26_S-P3DzugU3e8AbdfDeEh-Q6FQDV66skoz_reYeTcrWuYYMUh2kFQmllE5ogovu2O/pub?output=csv";
 
@@ -63,7 +63,7 @@ async function fetchData() {
         list.appendChild(div);
     });
 }
-
+async function render(){
 document.getElementById("search").addEventListener("input", render);
 document.getElementById("filter").addEventListener("change", render);
 
