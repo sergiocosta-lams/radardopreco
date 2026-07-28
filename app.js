@@ -58,12 +58,20 @@ async function render() {
         }
 
         div.innerHTML = `
-            <h3>${item.nome}</h3>
-            <p>⛽ Gasolina: R$ ${item.gasolina}</p>
-<p>🌱 Etanol: R$ ${item.etanol}</p>
-<p>⏰ ${item.horario}</p>
-<p>📍 ${item.endereco}</p>
-        `;
+    <h3>${item.nome}</h3>
+
+    <p>⛽ Gasolina: <strong>R$ ${item.gasolina.toFixed(2).replace(".", ",")}</strong></p>
+
+    <p>🌱 Etanol: <strong>R$ ${item.etanol.toFixed(2).replace(".", ",")}</strong></p>
+
+    <p>⏰ ${item.horario}</p>
+
+    <p>📍 ${item.endereco}</p>
+
+    <a href="${item.maps}" target="_blank" class="btn-maps">
+        📍 Como chegar
+    </a>
+`;
 
         list.appendChild(div);
     });
