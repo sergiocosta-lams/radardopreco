@@ -8,16 +8,20 @@ async function fetchData() {
 
     const rows = text.split("\n").slice(1);
 
-    return {
-    nome: cols[0],
-    bandeira: cols[1],
-    endereco: cols[2],
-    maps: cols[3],
-    gasolina: parseFloat(cols[4]),
-    etanol: parseFloat(cols[5]),
-    horario: cols[6]
-};
+    return rows.map(row => {
+        const cols = row.split(",");
 
+        return {
+            nome: cols[0],
+            bandeira: cols[1],
+            endereco: cols[2],
+            maps: cols[3],
+            gasolina: parseFloat(cols[4]),
+            etanol: parseFloat(cols[5]),
+            horario: cols[6]
+        };
+    });
+}
 alert(cols);
 
         console.log(cols);
@@ -57,15 +61,11 @@ async function render() {
             div.classList.add("cheapest");
         }
 
-        div.innerHTML = `
+       div.innerHTML = `
     <h3>${item.nome}</h3>
-
     <p>⛽ Gasolina: <strong>R$ ${item.gasolina.toFixed(2).replace(".", ",")}</strong></p>
-
     <p>🌱 Etanol: <strong>R$ ${item.etanol.toFixed(2).replace(".", ",")}</strong></p>
-
     <p>⏰ ${item.horario}</p>
-
     <p>📍 ${item.endereco}</p>
 
     <a href="${item.maps}" target="_blank" class="btn-maps">
