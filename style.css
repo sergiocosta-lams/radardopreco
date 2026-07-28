@@ -71,14 +71,15 @@ input,select{
 .cheapest::before{
     content:"🏆 MENOR PREÇO";
     position:absolute;
-    top:-12px;
-    right:15px;
+    top:-15px;
+    left:15px;
     background:#22c55e;
     color:white;
+    padding:5px 12px;
+    border-radius:20px;
     font-size:12px;
     font-weight:bold;
-    padding:5px 10px;
-    border-radius:20px;
+    z-index:10;
 }
 
 .preco{
