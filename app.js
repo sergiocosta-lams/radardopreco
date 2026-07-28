@@ -22,20 +22,7 @@ async function fetchData() {
         };
     });
 }
-alert(cols);
 
-        console.log(cols);
-
-        return {
-            nome: cols[0],
-            endereco: cols[1],
-            gasolina: parseFloat(cols[2]),
-            etanol: parseFloat(cols[3]),
-            horario: cols[4]
-        };
-    });
-}
-async function render() {
     const list = document.getElementById("list");
     list.innerHTML = "Carregando...";
 
