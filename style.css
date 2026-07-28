@@ -127,3 +127,13 @@ header p{
 .btn-maps:hover{
     background:#1d4ed8;
 }
+.badge-price{
+    display:inline-block;
+    background:#22c55e;
+    color:white;
+    padding:5px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
