@@ -58,10 +58,7 @@ input,select{
     font-size:16px;
     line-height:1.4;
 }
-.card p strong{
-    color:#16a34a;
-    font-size:22px;
-}
+
 
 .cheapest{
     border:3px solid #22c55e;
@@ -162,14 +159,13 @@ header p{
     color:#166534;
     font-size:13px;
     font-weight:bold;
-    margin-bottom:5px;
+    margin-bottom:8px;
     letter-spacing:1px;
 }
 
 .gasolina-box strong{
     display:block;
     color:#15803d;
-    font-size:34px;
+    font-size:36px;
     font-weight:700;
-    line-height:1.2;
 }
