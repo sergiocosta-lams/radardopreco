@@ -167,7 +167,9 @@ header p{
 }
 
 .gasolina-box strong{
+    display:block;
     color:#15803d;
     font-size:34px;
-    font-weight:bold;
+    font-weight:700;
+    line-height:1.2;
 }
