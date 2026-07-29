@@ -59,7 +59,10 @@ if(item.gasolina === data[0].gasolina){
 <h3>${item.nome}</h3>
 <p>⛽ Bandeira: ${item.bandeira}</p>
 
-        <p>⛽ Gasolina: R$ ${item.gasolina.toFixed(2)}</p>
+        <div class="gasolina-box">
+    <span>⛽ GASOLINA</span>
+    <strong>R$ ${item.gasolina.toFixed(2).replace(".", ",")}</strong>
+</div>
 
         <p>🌱 Etanol: R$ ${item.etanol.toFixed(2)}</p>
 
