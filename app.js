@@ -43,43 +43,56 @@ async function render(){
 
     data.sort((a, b) => a.gasolina - b.gasolina);
 
+
 data.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "card";
 
-        const div = document.createElement("div");
+    const menorGasolina = item.gasolina === Math.min(...data.map(p => p.gasolina));
 
-        div.className = "card";
-if(item.gasolina === data[0].gasolina){
-    div.classList.add("cheapest");
-}
+    if (menorGasolina) {
+        div.classList.add("cheapest");
+    }
 
-        div.innerHTML = `
+    const proporcao = item.etanol / item.gasolina;
+    let recomendacao = "";
 
-        ${item.gasolina === data[0].gasolina ? '<div class="badge-price">MENOR PREÇO</div>' : ''}
+    if (proporcao <= 0.70) {
+        recomendacao = "🌱 Etanol pode compensar mais";
+    } else {
+        recomendacao = "⛽ Gasolina pode compensar mais";
+    }
 
-<h3>${item.nome}</h3>
-<p>⛽ Bandeira: ${item.bandeira}</p>
+    div.innerHTML = `
+        ${menorGasolina ? '<div class="badge-price">MENOR PREÇO DA GASOLINA</div>' : ''}
 
-        <div class="gasolina-box">
-    <span>⛽ GASOLINA</span>
-    <strong>R$ ${item.gasolina.toFixed(2).replace(".", ",")}</strong>
-</div>
+        <h3>${item.nome}</h3>
+        <p>⛽ Bandeira: ${item.bandeira}</p>
 
-        <p>🌱 Etanol: R$ ${item.etanol.toFixed(2)}</p>
+        <div class="precos-combustivel">
+            <div class="preco-item">
+                <span>GASOLINA</span>
+                <strong>R$ ${Number(item.gasolina).toFixed(2).replace(".", ",")}</strong>
+            </div>
+
+            <div class="preco-item">
+                <span>ETANOL</span>
+                <strong>R$ ${Number(item.etanol).toFixed(2).replace(".", ",")}</strong>
+            </div>
+        </div>
+
+        <div class="recomendacao-combustivel">
+            ${recomendacao}
+            <small>Estimativa pela regra dos 70%. O resultado real depende do consumo do veículo.</small>
+        </div>
 
         <p>⏰ ${item.horario}</p>
-
         <p>📍 ${item.endereco}</p>
+        <a href="${item.maps}" target="_blank" rel="noopener noreferrer">📍 Como chegar</a>
+    `;
 
-        <a href="${item.maps}" target="_blank">
-        📍 Como chegar
-        </a>
-
-        `;
-
-
-        list.appendChild(div);
-
-    });
+    list.appendChild(div);
+});
 
 }
 
