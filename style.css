@@ -210,3 +210,22 @@ css
     -webkit-text-fill-color: #000000 !important;
     opacity: 1 !important;
 }
+/* MELHORAR A LEITURA DOS CARTÕES */
+.card h3 {
+color: #ffffff !important;
+font-size: 23px;
+font-weight: 800;
+}
+
+.card p {
+color: #e2e8f0 !important;
+-webkit-text-fill-color: #e2e8f0 !important;
+font-size: 16px;
+font-weight: 600;
+}
+
+.card a {
+color: #7dd3fc !important;
+font-weight: 700;
+text-decoration: underline;
+}
