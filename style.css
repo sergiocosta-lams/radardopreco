@@ -205,4 +205,8 @@ css
 .card .gasolina-box strong {
     color: #15803d !important;
 }
-
+.card p {
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+    opacity: 1 !important;
+}
