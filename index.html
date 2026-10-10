@@ -8,47 +8,41 @@ index.html
 <title>Radar do Preço</title>
 <link rel="stylesheet" href="style.css">
 <style>
+
 body {
-    font-family: Arial;
+    font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     background: #0f172a;
     color: white;
 }
 
-<header>
-
-<h1>⛽ Radar do Preço</h1>
-
-<p>Compare os preços dos combustíveis em Araguaína</p>
-
-<div class="status">
-📍 Araguaína - TO
-</div>
-
-</header>
-
-h1 { color: #38bdf8; }
-
-.container { padding: 15px; }
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px 20px;
+}
 
 input, select {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
+    box-sizing: border-box;
+    padding: 12px;
+    margin-bottom: 15px;
     border-radius: 8px;
-    border: none;
+    border: 1px solid #334155;
+    font-size: 16px;
 }
 
 .card {
     background: #1e293b;
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 10px;
+    padding: 18px;
+    border-radius: 12px;
+    margin-bottom: 15px;
 }
 
 .price {
-    font-size: 20px;
+    font-size: 22px;
     color: #4ade80;
+    font-weight: bold;
 }
 
 .cheapest {
@@ -58,7 +52,7 @@ input, select {
 button {
     background: #22c55e;
     border: none;
-    padding: 10px;
+    padding: 10px 15px;
     border-radius: 8px;
     color: white;
     cursor: pointer;
