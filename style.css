@@ -76,7 +76,7 @@ input,select{
 }
 
 .cheapest::before{
-    content:"🏆 MENOR PREÇO";
+    content:none;
     position:absolute;
     top:-12px;
     left:15px;
@@ -179,52 +179,23 @@ header p{
     font-size:36px;
     font-weight:700;
 }
-```css
-/* MELHORIA DE LEITURA DOS CARTÕES */
+css
+/* CONTRASTE DOS TEXTOS DOS POSTOS */
 
 .card h3 {
     color: #0f172a !important;
-    font-size: 23px;
-    font-weight: 800;
+    font-weight: 800 !important;
 }
 
 .card p {
-    color: #334155 !important;
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.card a {
-    color: #1d4ed8 !important;
-    font-weight: 700;
-    text-decoration: underline;
-}
-
-.card .gasolina-box span {
-    color: #166534 !important;
-}
-
-.card .gasolina-box strong {
-    color: #15803d !important;
-    font-weight: 800;
-}
-```
-```css
-/* TEXTOS MAIS ESCUROS NOS CARTÕES */
-
-.card p,
-.card p span,
-.card p strong {
     color: #111827 !important;
-    font-size: 16px !important;
-    font-weight: 600 !important;
+    font-weight: 500 !important;
     opacity: 1 !important;
 }
 
 .card a {
     color: #1d4ed8 !important;
     font-weight: 700 !important;
-    opacity: 1 !important;
 }
 
 .card .gasolina-box span {
@@ -234,6 +205,4 @@ header p{
 .card .gasolina-box strong {
     color: #15803d !important;
 }
-```
-
 
