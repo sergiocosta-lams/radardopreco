@@ -209,5 +209,31 @@ header p{
     font-weight: 800;
 }
 ```
+```css
+/* TEXTOS MAIS ESCUROS NOS CARTÕES */
+
+.card p,
+.card p span,
+.card p strong {
+    color: #111827 !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    opacity: 1 !important;
+}
+
+.card a {
+    color: #1d4ed8 !important;
+    font-weight: 700 !important;
+    opacity: 1 !important;
+}
+
+.card .gasolina-box span {
+    color: #166534 !important;
+}
+
+.card .gasolina-box strong {
+    color: #15803d !important;
+}
+```
 
 
