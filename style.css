@@ -46,18 +46,28 @@ input,select{
     box-shadow:0 15px 30px rgba(0,0,0,.18);
 }
 
+```css
 .card h3{
     margin:0 0 15px;
     font-size:22px;
+    font-weight:700;
     color:#0f172a;
 }
 
 .card p{
     margin:8px 0;
-    color:#475569;
+    color:#334155;
     font-size:16px;
-    line-height:1.4;
+    line-height:1.5;
+    font-weight:500;
 }
+
+.card strong{
+    color:#0f172a;
+    font-weight:700;
+}
+```
+
 
 
 .cheapest{
