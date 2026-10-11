@@ -1,103 +1,165 @@
-window.onload = async function(){
 
-const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRQPgvZ0cXCg26_S-P3DzugU3e8AbdfDeEh-Q6FQDV66skoz_reYeTcrWuYYMUh2kFQmllE5ogovu2O/pub?output=csv";
+const firebaseConfig = {
+    apiKey:"AIzaSyBfUEiZunm55dMkLJDJv9-2mTL0z8bf9uA",
+  authDomain: "radar-do-preco.firebaseapp.com",
+  projectId: "radar-do-preco",
+  storageBucket: "radar-do-preco.firebasestorage.app",
+  messagingSenderId: "424082578630",,
+    authDomain: "radar-do-preco.firebaseapp.com",
+    projectId: "radar-do-preco",
+    storageBucket: "radar-do-preco.firebasestorage.app",
+    messagingSenderId: "424082578630",
+    appId: "1:424082578630:web:44eb717b1d097d4cef0bc7"
+};
 
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-async function fetchData(){
+async function fetchData() {
+    const snapshot = await db.collection("preco").get();
+    const postos = {};
 
-    const res = await fetch(sheetURL);
-    const text = await res.text();
+    snapshot.forEach((doc) => {
+        const item = doc.data();
+        const nome = item.Estabelecimento || "Estabelecimento sem nome";
+        const produto = String(item.Produto || "").toLowerCase();
+        const preco = Number(item["Preço"]);
 
-    const rows = text.split("\n").slice(1);
+        if (!postos[nome]) {
+            postos[nome] = {
+                nome: nome,
+                cidade: item.Cidade || "Araguaína",
+                bandeira: item.Bandeira || "",
+                endereco: item.Endereco || item.endereco || "",
+                maps: item.Maps || item.maps || "",
+                horario: item.Horario || item.horario || "",
+                gasolina: null,
+                etanol: null
+            };
+        }
 
-    return rows.map(row => {
-
-        const cols = row.split(",");
-
-        return {
-            nome: cols[0],
-            bandeira: cols[1],
-            endereco: cols[2],
-            maps: cols[3],
-            gasolina: Number(cols[4]),
-            etanol: Number(cols[5]),
-            horario: cols[6]
-        };
-
+        if (Number.isFinite(preco) && preco > 0) {
+            if (produto.includes("gasolina")) {
+                postos[nome].gasolina = preco;
+            } else if (
+                produto.includes("etanol") ||
+                produto.includes("álcool") ||
+                produto.includes("alcool")
+            ) {
+                postos[nome].etanol = preco;
+            }
+        }
     });
+
+    return Object.values(postos);
 }
 
-
-async function render(){
-
+async function render() {
     const list = document.getElementById("list");
+    list.innerHTML = "Carregando preços...";
 
-    list.innerHTML = "Carregando...";
+    try {
+        const data = await fetchData();
 
+        data.sort((a, b) =>
+            (a.gasolina ?? Infinity) - (b.gasolina ?? Infinity)
+        );
 
-    const data = await fetchData();
+        list.innerHTML = "";
 
+        if (data.length === 0) {
+            list.textContent = "Nenhum preço cadastrado ainda.";
+            return;
+        }
 
-    list.innerHTML = "";
+        const precosGasolina = data
+            .map(p => p.gasolina)
+            .filter(p => p !== null);
 
+        const menorGasolina = precosGasolina.length
+            ? Math.min(...precosGasolina)
+            : null;
 
-    data.sort((a, b) => a.gasolina - b.gasolina);
+        data.forEach(item => {
+            const div = document.createElement("div");
+            div.className = "card";
 
+            const destaque =
+                item.gasolina !== null &&
+                item.gasolina === menorGasolina;
 
-data.forEach(item => {
-    const div = document.createElement("div");
-    div.className = "card";
+            if (destaque) div.classList.add("cheapest");
 
-    const menorGasolina = item.gasolina === Math.min(...data.map(p => p.gasolina));
+            let recomendacao = "Cadastre os dois preços para comparar.";
 
-    if (menorGasolina) {
-        div.classList.add("cheapest");
+            if (item.gasolina !== null && item.etanol !== null) {
+                recomendacao =
+                    item.etanol / item.gasolina <= 0.70
+                    ? "🌱 Etanol pode compensar mais"
+                    : "⛽ Gasolina pode compensar mais";
+            }
+
+            const dinheiro = valor =>
+                valor === null
+                ? "Não informado"
+                : "R$ " + valor.toFixed(2).replace(".", ",");
+
+            div.innerHTML = `
+                ${destaque
+                    ? '<div class="badge-price">MENOR PREÇO DA GASOLINA</div>'
+                    : ""}
+
+                <h3></h3>
+                <p>⛽ Bandeira: </p>
+
+                <div class="precos-combustivel">
+                    <div class="preco-item">
+                        <span>GASOLINA</span>
+                        <strong>${dinheiro(item.gasolina)}</strong>
+                    </div>
+                    <div class="preco-item">
+                        <span>ETANOL</span>
+                        <strong>${dinheiro(item.etanol)}</strong>
+                    </div>
+                </div>
+
+                <div class="recomendacao-combustivel">
+                    ${recomendacao}
+                    <small>Estimativa pela regra dos 70%. O resultado real depende do consumo do veículo.</small>
+                </div>
+
+                <p class="endereco-posto"></p>
+                <p class="horario-posto"></p>
+            `;
+
+            div.querySelector("h3").textContent = item.nome;
+            div.querySelector("p").textContent =
+                "⛽ Bandeira: " + (item.bandeira || "Não informada");
+
+            const paragrafos = div.querySelectorAll("p");
+            paragrafos[1].textContent =
+                item.endereco ? "📍 " + item.endereco : "";
+
+            paragrafos[2].textContent =
+                item.horario ? "⏰ " + item.horario : "";
+
+            if (item.maps) {
+                const link = document.createElement("a");
+                link.href = item.maps;
+                link.target = "_blank";
+                link.rel = "noopener noreferrer";
+                link.textContent = "📍 Como chegar";
+                div.appendChild(link);
+            }
+
+            list.appendChild(div);
+        });
+
+    } catch (erro) {
+        console.error("Erro ao carregar preços do Firebase:", erro);
+        list.textContent =
+            "Não foi possível carregar os preços. Verifique a conexão com o Firebase e as regras de acesso.";
     }
-
-    const proporcao = item.etanol / item.gasolina;
-    let recomendacao = "";
-
-    if (proporcao <= 0.70) {
-        recomendacao = "🌱 Etanol pode compensar mais";
-    } else {
-        recomendacao = "⛽ Gasolina pode compensar mais";
-    }
-
-    div.innerHTML = `
-        ${menorGasolina ? '<div class="badge-price">MENOR PREÇO DA GASOLINA</div>' : ''}
-
-        <h3>${item.nome}</h3>
-        <p>⛽ Bandeira: ${item.bandeira}</p>
-
-        <div class="precos-combustivel">
-            <div class="preco-item">
-                <span>GASOLINA</span>
-                <strong>R$ ${Number(item.gasolina).toFixed(2).replace(".", ",")}</strong>
-            </div>
-
-            <div class="preco-item">
-                <span>ETANOL</span>
-                <strong>R$ ${Number(item.etanol).toFixed(2).replace(".", ",")}</strong>
-            </div>
-        </div>
-
-        <div class="recomendacao-combustivel">
-            ${recomendacao}
-            <small>Estimativa pela regra dos 70%. O resultado real depende do consumo do veículo.</small>
-        </div>
-
-        <p>⏰ ${item.horario}</p>
-        <p>📍 ${item.endereco}</p>
-        <a href="${item.maps}" target="_blank" rel="noopener noreferrer">📍 Como chegar</a>
-    `;
-
-    list.appendChild(div);
-});
-
 }
-
 
 render();
-
-
-};
