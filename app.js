@@ -1,10 +1,7 @@
 
+
 const firebaseConfig = {
-    apiKey:"AIzaSyBfUEiZunm55dMkLJDJv9-2mTL0z8bf9uA",
-  authDomain: "radar-do-preco.firebaseapp.com",
-  projectId: "radar-do-preco",
-  storageBucket: "radar-do-preco.firebasestorage.app",
-  messagingSenderId: "424082578630",,
+    apiKey: "AIzaSyBfUEiZunm55dMkLJDJv9-2mTL0z8bf9uA",
     authDomain: "radar-do-preco.firebaseapp.com",
     projectId: "radar-do-preco",
     storageBucket: "radar-do-preco.firebasestorage.app",
